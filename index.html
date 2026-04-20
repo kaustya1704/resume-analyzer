@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Analyzer</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card p-4 shadow">
+
+        <h1 class="text-center mb-4">
+            AI-Based Resume Analyzer & Job Recommendation System
+        </h1>
+
+        <form method="POST" enctype="multipart/form-data" class="text-center">
+            <input type="file" name="resume" class="form-control mb-3" required>
+            <button class="btn btn-primary">Analyze Resume</button>
+        </form>
+
+        <p class="text-muted text-center mt-2">
+            Upload your resume (PDF) to get analysis
+        </p>
+
+        {% if score %}
+        <hr>
+
+        <!-- SCORE -->
+        <h3 class="text-success">Resume Score: {{ score }}/100</h3>
+
+        <!-- CATEGORY -->
+        <h4>📂 Resume Category: {{ category }}</h4>
+
+        <!-- FILE NAME -->
+        <p><strong>Uploaded File:</strong> {{ filename }}</p>
+
+        <!-- PROGRESS BAR -->
+        <div class="progress mb-4">
+            <div class="progress-bar bg-success" role="progressbar"
+                 style="width: {{ score }}%">
+                {{ score }}%
+            </div>
+        </div>
+
+        <!-- SCORE MESSAGE -->
+        {% if score >= 70 %}
+            <h5 class="text-success">Excellent Resume 👍</h5>
+        {% elif score >= 40 %}
+            <h5 class="text-warning">Average Resume ⚠️</h5>
+        {% else %}
+            <h5 class="text-danger">Needs Improvement ❌</h5>
+        {% endif %}
+
+        <!-- RESULTS -->
+        <div class="row mt-4">
+
+            <div class="col-md-4">
+                <h5>✅ Skills Found</h5>
+                <ul>
+                    {% for skill in found %}
+                    <li>{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h5>❌ Missing Skills</h5>
+                <ul>
+                    {% for skill in missing %}
+                    <li>{{ skill }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h5>💼 Job Suggestions</h5>
+                <ul>
+                    {% for job in jobs %}
+                    <li>{{ job }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- TIPS -->
+        <div class="mt-4">
+            <h5>📌 Improvement Tips</h5>
+            <ul>
+                {% for tip in tips %}
+                <li>{{ tip }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% endif %}
+
+        <!-- FOOTER -->
+        <hr>
+        <p class="text-center text-muted">
+            © 2026 AI Resume Analyzer | Final Year Project
+        </p>
+
+    </div>
+</div>
+
+</body>
+</html>
